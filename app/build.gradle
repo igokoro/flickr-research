@@ -1,0 +1,98 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.android.extensions'
+}
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("keys.properties")))
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        applicationId "dev.igokoro.flickr"
+        minSdkVersion 24
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField 'String', 'FLICKR_API_KEY', "\"${localProperties['FLICKR_API_KEY']}\""
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+kapt {
+    correctErrorTypes true
+}
+
+dependencies {
+
+    implementation "androidx.core:core-ktx:${Versions.core}"
+    implementation "androidx.appcompat:appcompat:${Versions.appcompat}"
+    implementation "com.google.android.material:material:${Versions.material}"
+    implementation "dev.chrisbanes:insetter-ktx:${Versions.insetter}"
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraint}"
+    implementation "androidx.recyclerview:recyclerview:${Versions.recycler}"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.nav}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.nav}"
+
+    implementation "androidx.paging:paging-runtime-ktx:${Versions.paging}"
+    implementation "androidx.paging:paging-rxjava3:${Versions.paging}"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${Versions.lifecycle}"
+
+    implementation "com.github.bumptech.glide:glide:${Versions.glide}"
+    kapt "com.github.bumptech.glide:compiler:${Versions.glide}"
+    implementation "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
+
+    implementation "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+
+    implementation "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:${Versions.retrofit}"
+    implementation "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+
+    implementation "com.squareup.moshi:moshi:${Versions.moshi}"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshi}"
+
+    implementation "io.reactivex.rxjava3:rxjava:${Versions.rxjava}"
+    implementation "io.reactivex.rxjava3:rxandroid:${Versions.rxandroid}"
+
+    implementation "com.google.dagger:hilt-android:${Versions.hilt}"
+    kapt "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_extra}"
+    kapt "androidx.hilt:hilt-compiler:${Versions.hilt_extra}"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin}"
+
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
