@@ -41,9 +41,7 @@ internal class PhotosRxPagingSource constructor(
     private val source: (Int, Int) -> Single<Page>
 ) : RxPagingSource<Int, Photo>() {
 
-    @Suppress("UNCHECKED_CAST")
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Photo>> {
-
         val page = params.key ?: 1
         return source(
             page,
@@ -56,7 +54,6 @@ internal class PhotosRxPagingSource constructor(
 
 class PageToLoadResultConverter @Inject constructor(
 ) : Function1<Page, LoadResult<Int, Photo>> {
-    @Suppress("UNCHECKED_CAST")
     override fun invoke(page: Page): LoadResult<Int, Photo> {
         return LoadResult.Page(
             data = page.photos,

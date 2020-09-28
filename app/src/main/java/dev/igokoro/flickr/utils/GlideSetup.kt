@@ -12,7 +12,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.scopes.FragmentScoped
 
-// 100 MB
+// 200 MB
 private const val diskCacheSizeBytes = 1024 * 1024 * 200L
 
 @InstallIn(FragmentComponent::class)

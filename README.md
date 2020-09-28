@@ -23,10 +23,12 @@ Release build was not tested, so no guarantees proguard is not messing things up
 1. `Hilt` for dependency injection. Really impressed here. A setup that would usually take days (given you even know what you're doing) is simplified to minutes. There are rough edges in many places but it looks very promising
 
 ## App Architecture
-* Dependency injection. Things are broken down into small chunks to allow for a really simple unit testing. 
+* Single-activity application.
+* Dependency injection. Things are broken down into small chunks to allow for a really simple unit testing.
+* Clean-code layering is "attempted" - kotlin (and `hilt` too) makes it harder to hide private implementations because "public class/constructor/method exposes internal/private class". <br/> "Attempted" because layering is there - it's just that way too many implementation classes are public. 
 * Screens are built using MVVM. Unidirectional data flow is applied to each screen.
 * Model is represented by FlickrRepo (+ PhotosRxPagingSource for paging).
 * In case of Paging, they really take over the API that can exposed, even there, real model is repository.
-* Factories are used all over the place to farther break down dependencies (really wish `AssistedInject` was build into `Hilt` or `Dagger`)
+* Factories are used all over the place to farther break down dependencies (really wish `AssistedInject` was build into `Hilt` or `Dagger`).
 * Navigation is implemented as observable action stream that `ViewModel` writes to and `View` reads from and executes by feeding to `navController`. Too bad `navController` does not work at ViewModel level directly (as some in `compose` attempt to do).
 * Burden of disposing rx streams is simplified via auto-disposal. <br/> Streams can be associated with either ViewModel (and get disposed upon `onCleared()`) or `Lifecycle` (and get disposed upon `ON_DESTROY` event). <br/> Tying rx to ViewModel lifecycle, for example, allows to keep streams alive across configuration changes.
