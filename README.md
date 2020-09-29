@@ -25,7 +25,7 @@ Release build was not tested, so no guarantees proguard is not messing things up
 ## App Architecture
 * Single-activity application.
 * Dependency injection. Things are broken down into small chunks to allow for a really simple unit testing.
-* Clean-code layering is "attempted" - kotlin (and `hilt` too) makes it harder to hide private implementations because "public class/constructor/method exposes internal/private class". <br/> "Attempted" because layering is there - it's just that way too many implementation classes are public. 
+* Clean-code layering is "attempted" - kotlin (and `hilt` too) makes it a little harder to hide private implementations because "public class/constructor/method exposes internal/private class". <br/> One way to work-around the internal -> public visibility exposure (that is prohibited with kotlin) is to use method or property injection - a little less efficient but improves isolation. 
 * Screens are built using MVVM. Unidirectional data flow is applied to each screen.
 * Model is represented by FlickrRepo (+ PhotosRxPagingSource for paging).
 * In case of Paging, they really take over the API that can exposed, even there, real model is repository.
