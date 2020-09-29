@@ -5,6 +5,12 @@ import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
+private const val PARAM_FLICKR_API_KEY = "api_key"
+private const val PARAM_FORMAT = "format"
+private const val VALUE_FORMAT_JSON = "json"
+private const val PARAM_DO_NOT_USE_JSONP = "nojsoncallback"
+private const val VALUE_NO_JSONP = "1"
+
 /**
  * Takes care of injecting common Flickr API query params:
  * * `format=json` to get response in `JSON` format
@@ -16,15 +22,15 @@ class NetworkParamInjector @Inject constructor() : Interceptor {
         val url = chain.request().url
             .newBuilder()
             .addQueryParameter(
-                "format",
-                "json"
+                PARAM_FORMAT,
+                VALUE_FORMAT_JSON
             )
             .addQueryParameter(
-                "nojsoncallback",
-                "1"
+                PARAM_DO_NOT_USE_JSONP,
+                VALUE_NO_JSONP
             )
             .addQueryParameter(
-                "api_key",
+                PARAM_FLICKR_API_KEY,
                 BuildConfig.FLICKR_API_KEY
             )
             .build()

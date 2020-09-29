@@ -21,6 +21,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class PhotoGridFragment : Fragment() {
+    // would be really nice to completely hide ViewModel implementation from View
     private val viewModel: PhotoGridViewModel by viewModels<PhotoGridViewModelImpl>()
 
     @Inject

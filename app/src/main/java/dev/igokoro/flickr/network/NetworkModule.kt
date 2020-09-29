@@ -1,20 +1,17 @@
 package dev.igokoro.flickr.network
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.components.ApplicationComponent
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import dev.igokoro.flickr.data.FlickrApi
-import dev.igokoro.flickr.data.FlickrRepo
-import dev.igokoro.flickr.data.FlickrRepoImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+
+private const val FLICKR_API_BASE_URL = "https://www.flickr.com/services/"
 
 @InstallIn(ApplicationComponent::class)
 @Module
@@ -28,7 +25,7 @@ internal class NetworkModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://www.flickr.com/services/")
+            .baseUrl(FLICKR_API_BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
