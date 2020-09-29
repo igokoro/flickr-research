@@ -1,6 +1,6 @@
 package dev.igokoro.flickr.network
 
-import dev.igokoro.flickr.BuildConfig
+import dev.igokoro.flickr.di.FlickrApiKey
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -17,7 +17,9 @@ private const val VALUE_NO_JSONP = "1"
  * * `nojsoncallback=1` to get a raw `JSON` instead of `JSONP`
  * * `api_key`
  */
-class NetworkParamInjector @Inject constructor() : Interceptor {
+class NetworkParamInjector @Inject constructor(
+    @FlickrApiKey private val flickrApiKey: String
+) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val url = chain.request().url
             .newBuilder()
@@ -31,7 +33,7 @@ class NetworkParamInjector @Inject constructor() : Interceptor {
             )
             .addQueryParameter(
                 PARAM_FLICKR_API_KEY,
-                BuildConfig.FLICKR_API_KEY
+                flickrApiKey
             )
             .build()
         val request = chain.request()

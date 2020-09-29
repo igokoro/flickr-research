@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
-import dev.igokoro.flickr.data.FlickrApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,8 +17,8 @@ private const val FLICKR_API_BASE_URL = "https://www.flickr.com/services/"
 internal class NetworkModule {
 
     @Provides
-    fun api(retrofit: Retrofit): FlickrApi {
-        return retrofit.create(FlickrApi::class.java)
+    fun api(retrofit: Retrofit): dev.igokoro.flickr.data_layer.FlickrApi {
+        return retrofit.create(dev.igokoro.flickr.data_layer.FlickrApi::class.java)
     }
 
     @Provides

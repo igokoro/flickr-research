@@ -1,4 +1,4 @@
-package dev.igokoro.flickr.data
+package dev.igokoro.flickr.data_layer
 
 import androidx.paging.PagingSource.LoadResult
 import androidx.paging.rxjava3.RxPagingSource
@@ -6,9 +6,11 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class PhotosRxPagingSourceFactory @Inject constructor(
-    private val flickrRepo: FlickrRepo,
-    private val converter: PageToLoadResultConverter
+    private val flickrRepo: FlickrRepo
 ) {
+    // can't use constructor injection to avoid internal -> public visibility propagation
+    @Inject internal lateinit var converter: PageToLoadResultConverter
+
     fun build(config: SearchConfig? = null): RxPagingSource<Int, Photo> {
         val ceiling = System.currentTimeMillis() / 1000
         return if (config == null) {
@@ -52,7 +54,7 @@ internal class PhotosRxPagingSource constructor(
     }
 }
 
-class PageToLoadResultConverter @Inject constructor(
+internal class PageToLoadResultConverter @Inject constructor(
 ) : Function1<Page, LoadResult<Int, Photo>> {
     override fun invoke(page: Page): LoadResult<Int, Photo> {
         return LoadResult.Page(

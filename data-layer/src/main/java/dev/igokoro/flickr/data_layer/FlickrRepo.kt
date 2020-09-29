@@ -1,11 +1,10 @@
-package dev.igokoro.flickr.data
+package dev.igokoro.flickr.data_layer
 
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 interface FlickrRepo {
     fun recent(params: RecentPhotosRequest): Single<Page>
-
     fun hotTags(): Single<List<Tag>>
     fun photosForTag(params: SearchRequestParams): Single<Page>
 }

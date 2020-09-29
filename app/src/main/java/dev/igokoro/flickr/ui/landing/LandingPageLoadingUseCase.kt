@@ -1,10 +1,10 @@
 package dev.igokoro.flickr.ui.landing
 
 import dev.igokoro.flickr.R
-import dev.igokoro.flickr.data.FlickrRepo
-import dev.igokoro.flickr.data.Page
-import dev.igokoro.flickr.data.Photo
-import dev.igokoro.flickr.data.RecentPhotosRequest
+import dev.igokoro.flickr.data_layer.FlickrRepo
+import dev.igokoro.flickr.data_layer.Page
+import dev.igokoro.flickr.data_layer.Photo
+import dev.igokoro.flickr.data_layer.RecentPhotosRequest
 import dev.igokoro.flickr.ktx.first
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Observable

@@ -1,15 +1,14 @@
-package dev.igokoro.flickr.data
+package dev.igokoro.flickr.data_layer
 
 import com.squareup.moshi.JsonClass
 
-// TODO move data layer code to its own module
 @JsonClass(generateAdapter = true)
-data class PhotoPageEnvelopeDto(
+internal data class PhotoPageEnvelopeDto(
     val photos: PhotoPageDto
 )
 
 @JsonClass(generateAdapter = true)
-data class PhotoPageDto(
+internal data class PhotoPageDto(
     val page: Int,
     val pages: Int,
     val perpage: Int,
@@ -18,7 +17,7 @@ data class PhotoPageDto(
 )
 
 @JsonClass(generateAdapter = true)
-data class PhotoDto(
+internal data class PhotoDto(
     val id: String,
     val farm: String,
     val secret: String,
@@ -27,27 +26,27 @@ data class PhotoDto(
 )
 
 @JsonClass(generateAdapter = true)
-data class PhotosDto(
+internal data class PhotosDto(
     val photo: List<PhotoDto>
 )
 
 @JsonClass(generateAdapter = true)
-data class ThmDataDto(
+internal data class ThmDataDto(
     val photos: PhotosDto
 )
 
 @JsonClass(generateAdapter = true)
-data class TagDto(
+internal data class TagDto(
     val _content: String,
     val thm_data: ThmDataDto
 )
 
 @JsonClass(generateAdapter = true)
-data class TagsDto(
+internal data class TagsDto(
     val tag: List<TagDto>
 )
 
 @JsonClass(generateAdapter = true)
-data class HotTagsDto(
+internal data class HotTagsDto(
     val hottags: TagsDto
 )

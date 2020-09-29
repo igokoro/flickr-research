@@ -1,4 +1,4 @@
-package dev.igokoro.flickr.data
+package dev.igokoro.flickr.data_layer
 
 data class Tag(
     val label: String,

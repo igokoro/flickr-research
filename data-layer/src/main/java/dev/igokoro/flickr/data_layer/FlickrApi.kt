@@ -1,4 +1,4 @@
-package dev.igokoro.flickr.data
+package dev.igokoro.flickr.data_layer
 
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
@@ -7,7 +7,7 @@ import retrofit2.http.Query
 /**
  * Definitions for Flickr API calls in `Retrofit` terms.
  */
-interface FlickrApi {
+internal interface FlickrApi {
 
     /**
      * Get recent photos. Outside of ugly JSON structure, this endpoint generates a lot of duplicate

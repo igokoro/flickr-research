@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import dev.igokoro.flickr.data.Photo
+import dev.igokoro.flickr.data_layer.Photo
 import dev.igokoro.flickr.databinding.ItemPhotoBinding
 import dev.igokoro.flickr.ui.landing.PhotoUrlConverter
 import dev.igokoro.flickr.utils.GlideRequests
@@ -45,7 +45,8 @@ internal class PhotoGridAdapter @Inject constructor(
     }
 }
 
-internal class ItemCallbackImpl @Inject constructor() : DiffUtil.ItemCallback<Photo>() {
+internal class ItemCallbackImpl @Inject constructor() :
+    DiffUtil.ItemCallback<Photo>() {
     override fun areItemsTheSame(
         p0: Photo,
         p1: Photo

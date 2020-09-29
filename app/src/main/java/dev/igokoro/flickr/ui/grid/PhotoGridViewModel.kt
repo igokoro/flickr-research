@@ -12,9 +12,9 @@ import androidx.paging.rxjava3.RxPagingSource
 import androidx.paging.rxjava3.cachedIn
 import androidx.paging.rxjava3.observable
 import dev.igokoro.flickr.R
-import dev.igokoro.flickr.data.Photo
-import dev.igokoro.flickr.data.PhotosRxPagingSourceFactory
-import dev.igokoro.flickr.data.SearchConfig
+import dev.igokoro.flickr.data_layer.Photo
+import dev.igokoro.flickr.data_layer.PhotosRxPagingSourceFactory
+import dev.igokoro.flickr.data_layer.SearchConfig
 import dev.igokoro.flickr.ui.landing.RemoteText
 import dev.igokoro.flickr.ui.landing.ResourceText
 import dev.igokoro.flickr.ui.landing.Text
@@ -58,7 +58,11 @@ class PreparePagingSource @Inject constructor(
 ) : Function1<PhotoGridParam, RxPagingSource<Int, Photo>> {
     override fun invoke(param: PhotoGridParam) = when (param.rollType) {
         RollType.RECENT -> photosRxPagingSourceFactory.build()
-        RollType.TAG -> photosRxPagingSourceFactory.build(SearchConfig(param.tag!!))
+        RollType.TAG -> photosRxPagingSourceFactory.build(
+            SearchConfig(
+                param.tag!!
+            )
+        )
     }
 }
 

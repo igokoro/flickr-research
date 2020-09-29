@@ -1,4 +1,4 @@
-package dev.igokoro.flickr.data
+package dev.igokoro.flickr.data_layer
 
 import javax.inject.Inject
 
@@ -13,7 +13,7 @@ internal class TagConverter @Inject constructor(
     }
 }
 
-class PhotoConverter @Inject constructor(
+internal class PhotoConverter @Inject constructor(
 ) : Function1<PhotoDto, Photo> {
     override fun invoke(dto: PhotoDto) = Photo(
         id = dto.id,
@@ -24,7 +24,7 @@ class PhotoConverter @Inject constructor(
     )
 }
 
-class PageConverter @Inject constructor(
+internal class PageConverter @Inject constructor(
     private val toPhoto: PhotoConverter
 ) : Function1<PhotoPageEnvelopeDto, Page> {
     override fun invoke(dto: PhotoPageEnvelopeDto): Page {
@@ -33,6 +33,5 @@ class PageConverter @Inject constructor(
             dto.photos.pages,
             dto.photos.photo.map { toPhoto(it) }
         )
-
     }
 }
