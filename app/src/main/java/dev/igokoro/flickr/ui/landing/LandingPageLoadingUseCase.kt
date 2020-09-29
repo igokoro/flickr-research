@@ -11,11 +11,18 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
+/**
+ * This will prepare a stream that drives presentation for the landing screen.
+ */
 class MainPageLoadingUseCase @Inject constructor(
     private val recentPhotosUseCase: RecentPhotosClusterUseCase,
     private val hotTagsUseCase: HotTagsUseCase
 ) {
 
+    /**
+     * Combines a grid of recent photos at the top with a list of hot tags. Initial load includes
+     * an empty recent photos grid to improve perception of UI loading.
+     */
     fun prepareStream(): Observable<List<PhotoCluster>> {
         return Observable.combineLatest(
             recentPhotosUseCase.execute()
@@ -44,6 +51,9 @@ class MainPageLoadingUseCase @Inject constructor(
     }
 }
 
+/**
+ * This takes hot tags from repository and prepares data for display in UI.
+ */
 class HotTagsUseCase @Inject constructor(
     private val repo: FlickrRepo,
     private val toUrl: PhotoUrlConverter
@@ -62,6 +72,9 @@ class HotTagsUseCase @Inject constructor(
     }
 }
 
+/**
+ * This takes recent photos from repository and prepares them to be displayed.
+ */
 class RecentPhotosClusterUseCase @Inject constructor(
     private val repo: FlickrRepo,
     private val toCluster: PageToClusterConverter
@@ -75,6 +88,11 @@ class RecentPhotosClusterUseCase @Inject constructor(
             )
         )
             .map { toCluster(it) }.toFlowable()
+        // Updating recent photos is very simple!
+        // but then we also need to think about the appropriate lifecycle/scoping for the stream
+        // as updating when fragment is not displayed or is in back stack is not wanted.
+        // Yet using simple viewFragmentLifecycle is not sufficient as the stream would be
+        // interrupted on configuration changes...
 //            .repeatWhen { Flowable.interval(30L, TimeUnit.SECONDS) }
     }
 }
